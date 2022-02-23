@@ -1,24 +1,28 @@
 USE test;
 
-DROP PROCEDURE IF EXISTR sign;
+DROP PROCEDURE IF EXIST sign;
 
-DELIMENTER / / CREATE PROCEDURE sign(IN numero INT, OUT respuesa varchar(14)) BEGIN CASE
-    WHEN numero > 0 Then
-    SET
-        respuesa = "Es positivo";
+DELIMITER / / 
+CREATE PROCEDURE sign(IN numero INT, OUT respuesta varchar(14))
+BEGIN CASE
+WHEN numero > 0 Then
+SET
+    respuesta = "Es positivo";
 
+ELSE
 WHEN numero < 0 Then
 SET
-    respuesa = "Es negativo";
+    respuesta = "Es negativo";
 
 ELSE
 SET
-    respuesa = "Es cero";
+    respuesta = "Es cero";
 
-END CASE
-;
+END CASE;
 
 END / / DELIMETER;
 
-CALL sign(7, @respuesa);
-SELECT @respuesa;
+CALL sign(7, @respuesta);
+
+SELECT
+    @respuesta;
