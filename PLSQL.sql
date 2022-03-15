@@ -1,28 +1,20 @@
 DROP DATABASE IF EXISTS exercicis_plsql;
 CREATE DATABASE exercicis_plsql;
 USE exercicis_plsql;
--- Escriu un procediment que rebi un nombre real d'entrada
---  i mostri un missatge indicant si el número és positiu,
---  negatiu o zero.
-DROP PROCEDURE IF EXISTS prueba;
+ 
+DROP FUNCTION IF EXISTS gnums;
 DELIMITER //
-CREATE PROCEDURE prueba(IN num DECIMAL, OUT resultat VARCHAR(20))
+CREATE FUNCTION gnums(num1 INT, num2 INT, num3 INT)
+RETURNS INT DETERMINISTIC
 BEGIN
-    IF num >= 0 AND num < 5 THEN
-        SELECT resultat = "Insuficient";
-    ELSE IF num < 6 THEN
-        SELECT resultat = "Aprovat";
-    ELSE IF num < 7 THEN
-        SELECT resultat = "Bé";
-    ELSE IF num < 9 THEN
-        SELECT resultat = "Notable";
-    ELSE IF num <= 10 THEN
-        SELECT resultat = "Excel·lent";
-    ELSE
-        SELECT resultat = "Nota no valida";
-    END IF;
+    DECLARE num INT;
+    CASE
+       WHEN num1 > num2 AND num1 > num3 THEN SET num = num1;
+       WHEN num2 > num1 AND num2 > num3 THEN SET num = num2;
+       ELSE SET num = num3;
+   END CASE;
+return (num);
 END //
 
 /* ----------- PRUEBAS ----------- */
-
-SET resultat
+SELECT gnums(22, 3, 4);3
