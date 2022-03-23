@@ -14,8 +14,8 @@ CREATE TABLE alumnes(
 DELIMETER $$
 
 CREATE TRIGGER trigger_check_nota_before_insert
-   BEFORE INSERT
    ON alumnes FOR EACH ROW
+   BEFORE INSERT
 BEGIN   
    IF new.nota < 0 THEN 
    SET new.nota = 0;
