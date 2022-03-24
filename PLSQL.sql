@@ -3,7 +3,8 @@ CREATE DATABASE test;
 USE test;
  
 DROP TABLE IF EXISTS alumnes;
-CREATE TABLE alumnes(
+
+CREATE TABLE alumnes (
    id INT PRIMARY KEY AUTO_INCREMENT,
    nom CHAR(20),
    cognom1 CHAR(20),
@@ -11,11 +12,9 @@ CREATE TABLE alumnes(
    nota INT 
 );
 
-DELIMETER $$
-
 CREATE TRIGGER trigger_check_nota_before_insert
-   ON alumnes FOR EACH ROW
-   BEFORE INSERT
+   BEFORE INSERT ON alumnes 
+   FOR EACH ROW
 BEGIN   
    IF new.nota < 0 THEN 
    SET new.nota = 0;
@@ -25,5 +24,3 @@ BEGIN
    SET new.nota = 10;
    END IF;
 END$$
-
-DELIMETER;
