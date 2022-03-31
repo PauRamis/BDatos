@@ -9,6 +9,13 @@ CREATE TABLE alumnes (
    cognom1 CHAR(20),
    cognom2 CHAR(20),
    nota INT,
+   domini CHAR(20),
    PRIMARY KEY (id)
 );
-delimiter $$
+
+DROP PROCEDURE IF EXISTS crear_email;
+DELIMITER //
+CREATE PROCEDURE crear_email(IN gmail CHAR)
+BEGIN
+ 
+END //
