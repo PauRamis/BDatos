@@ -17,17 +17,12 @@ DROP PROCEDURE IF EXISTS crear_email;
 DELIMITER //
 CREATE PROCEDURE crear_email(IN nom CHAR(20), IN cognom1 CHAR(20), IN cognom2 CHAR(20), IN domini CHAR(20), OUT gmail VARCHAR(20))
 BEGIN
-   SELECT SUBSTRING(nom, 1, 1) AS ExtractString;
-   SET gmail = ExtractString;
+   SELECT SUBSTRING(nom, 1, 1) AS Exnom;
+   SELECT SUBSTRING(cognom1, 1, 3) AS Excognom1;
+   SELECT SUBSTRING(cognom2, 1, 3) AS Excognom2;
+
+   SET gmail = Exnom + Excognom1 + Excognom2 + "@" + domini;
 END //
-
-/* El primer caràcter de l'paràmetre nom.
-Els tres primers caràcters de l'paràmetre cognom1.
-Els tres primers caràcters de l'paràmetre cognom2.
-El caràcter @.
-El domini passat com a paràmetre. */
-
-
 
 /* inserts */
 INSERT INTO `alumnes` 
