@@ -1,6 +1,6 @@
 DROP DATABASE IF EXISTS test;
 CREATE DATABASE test;
-USE test;
+USE test;x
 
 DROP TABLE IF EXISTS alumnes;
 CREATE TABLE alumnes (
@@ -16,13 +16,9 @@ CREATE TABLE alumnes (
 
 DROP PROCEDURE IF EXISTS crear_email;
 DELIMITER //
-CREATE PROCEDURE crear_email(IN nom CHAR(20), IN cognom1 CHAR(20), IN cognom2 CHAR(20), IN domini CHAR(20), OUT defgmail VARCHAR(20))
+CREATE PROCEDURE crear_email(IN nom CHAR(20), IN cognom1 CHAR(20), IN cognom2 CHAR(20), IN domini CHAR(20), OUT defgmail VARCHAR(100))
 BEGIN
-   SELECT SUBSTRING(nom, 1, 1) AS Exnom;
-   SELECT SUBSTRING(cognom1, 1, 3) AS Excognom1;
-   SELECT SUBSTRING(cognom2, 1, 3) AS Excognom2;
-
-   SET defgmail = Exnom + Excognom1 + Excognom2 + "@" + domini;
+   SET defgmail = LOWER(CONCAT(SUBSTRING(nom, 1, 1), SUBSTRING(cognom1, 1, 3), SUBSTRING(cognom2, 1, 3), "@", domini, ".com"));
 END //
 
 delimiter $$
@@ -32,10 +28,11 @@ CREATE TRIGGER trigger_crear_email_before_insert
    FOR EACH ROW
 BEGIN
    IF new.gmail = NULL THEN
-   CALL crear_email(nom, cognom1, cognom2, domini);
-   SET new.gmail = defgmail;
+      CALL crear_email(nom, cognom1, cognom2, domini, new.gmail);
    END IF;
 END$$
+
+
 
 /* inserts */
 INSERT INTO `alumnes` (id, nom, cognom1, cognom2, nota, domini)
