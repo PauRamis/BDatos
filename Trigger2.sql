@@ -27,6 +27,58 @@ END //
 
 delimiter $$
 
+CREATE TRIGGER trigger_check_nota_before_insert
+   BEFORE INSERT ON alumnes
+   FOR EACH ROW
+BEGIN
+   IF new.nota < 0 THEN
+   SET new.nota = 0;
+   END IF;
+
+   IF new.nota > 10 THEN
+   SET new.nota = 10;
+   END IF; 
+END$$
+
+CREATE TRIGGER trigger_check_nota_before_update
+   BEFORE UPDATE ON alumnes
+   FOR EACH ROW
+BEGIN
+   IF new.nota < 0 THEN
+   SET new.nota = 0;
+   END IF;
+
+   IF new.nota > 10 THEN
+   SET new.nota = 10;
+   END IF;
+END$$
+
+CREATE TRIGGER trigger_check_nota_before_insert
+   BEFORE INSERT ON alumnes
+   FOR EACH ROW
+BEGIN
+   IF new.nota < 0 THEN
+   SET new.nota = 0;
+   END IF;
+
+   IF new.nota > 10 THEN
+   SET new.nota = 10;
+   END IF; 
+END$$
+
+CREATE TRIGGER trigger_check_nota_before_update
+   BEFORE UPDATE ON alumnes
+   FOR EACH ROW
+BEGIN
+   IF new.nota < 0 THEN
+   SET new.nota = 0;
+   END IF;
+
+   IF new.nota > 10 THEN
+   SET new.nota = 10;
+   END IF;
+END$$
+
 CREATE TRIGGER trigger_crear_email_before_insert
    BEFORE INSERT ON alumnes
    FOR EACH ROW
