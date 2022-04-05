@@ -56,11 +56,18 @@ CREATE TRIGGER trigger_crear_email_before_insert
    FOR EACH ROW
 BEGIN
    IF new.gmail IS NULL THEN
-      CALL crear_email(new.nom, new.cognom1, new.cognom2, "domini", new.gmail);
+      CALL crear_email(new.nom, new.cognom1, new.cognom2, new.domini, new.gmail);
    END IF;
 END$$
 
 /*Trigger3*/
+CREATE TRIGGER trigger_guardar_email_after_update
+AFTER UPDATE ON alumnes
+FOR EACH ROW
+BEGIN
+
+END$$
+
 /*Trigger4*/
 /* inserts */
 INSERT INTO `alumnes` (id, nom, cognom1, cognom2, nota, domini)
