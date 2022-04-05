@@ -14,6 +14,16 @@ CREATE TABLE alumnes (
    PRIMARY KEY (id)
 );
 
+DROP TABLE IF EXISTS log_cambios_email;
+CREATE TABLE log_cambios_email (
+   id INT NOT NULL AUTO_INCREMENT,
+   id_alumno INT,
+   fecha_hora DATE, /*CURRENT_TIMESTAMP*/
+   old_email CHAR(100)
+   new_email CHAR(100)
+   PRIMARY KEY (id)
+);
+
 DROP PROCEDURE IF EXISTS crear_email;
 DELIMITER //
 CREATE PROCEDURE crear_email(IN nom CHAR(20), IN cognom1 CHAR(20), IN cognom2 CHAR(20), IN domini CHAR(20), OUT defgmail VARCHAR(100))
@@ -65,7 +75,12 @@ CREATE TRIGGER trigger_guardar_email_after_update
 AFTER UPDATE ON alumnes
 FOR EACH ROW
 BEGIN
+   IF new.gmail != old.gmail THEN
+      UPDATE 'log_cambios_email'
+      SET (old_email = alumnes.old.gmail, new_email = alumnes.new.gmail)
+      WHERE log_cambios_email.id_alumno = alumnes.id
 
+   END IF;
 END$$
 
 /*Trigger4*/
