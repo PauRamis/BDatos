@@ -22,7 +22,7 @@ BEGIN
 END //
 
 delimiter $$
-
+/*Trigger1*/
 CREATE TRIGGER trigger_check_nota_before_insert
    BEFORE INSERT ON alumnes
    FOR EACH ROW
@@ -49,6 +49,7 @@ BEGIN
    END IF;
 END$$
 
+/*Trigger2*/
 CREATE TRIGGER trigger_check_nota_before_insert
    BEFORE INSERT ON alumnes
    FOR EACH ROW
@@ -84,7 +85,7 @@ BEGIN
    END IF;
 END$$
 
-
+/*Trigger3*/
 
 /* inserts */
 INSERT INTO `alumnes` (id, nom, cognom1, cognom2, nota, domini)
