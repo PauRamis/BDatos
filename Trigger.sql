@@ -19,8 +19,10 @@ CREATE TABLE log_cambios_email (
    id INT NOT NULL AUTO_INCREMENT,
    id_alumno INT,
    fecha_hora DATE, /*CURRENT_TIMESTAMP*/
-   old_email CHAR(100)
-   new_email CHAR(100)
+   old_email CHAR(100),
+   new_email CHAR(100),
+   FOREIGN KEY (id_alumno)
+      REFERENCES alumnes(id),
    PRIMARY KEY (id)
 );
 
@@ -76,14 +78,21 @@ AFTER UPDATE ON alumnes
 FOR EACH ROW
 BEGIN
    IF new.gmail != old.gmail THEN
-      UPDATE 'log_cambios_email'
-      SET (old_email = alumnes.old.gmail, new_email = alumnes.new.gmail)
-      WHERE log_cambios_email.id_alumno = alumnes.id
-
+   
+      UPDATE log_cambios_email
+      SET (log_cambios_email.old_email = alumnes.old.gmail, log_cambios_email.new_email = alumnes.new.gmail)
+      FROM 
+         log_cambios_email
+         INNER JOIN alumnes
+            ON log_cambios_email.id_alumno = alumnes.id;
    END IF;
+   
+   /*  
+   INSERT INTO log_cambios_email (id_alumno, fecha_hora, old_email, new_email) 
+   VALUES (old.id, NOW(), old.email, new.email); */
 END$$
 
 /*Trigger4*/
 /* inserts */
-INSERT INTO `alumnes` (id, nom, cognom1, cognom2, nota, domini)
+INSERT INTO alumnes (id, nom, cognom1, cognom2, nota, domini)
 VALUES (1,'et','soluta','Elise',5,'blala'),(2,'in','quae','Jamie',-1,'blala'),(3,'et','porro','Isaiah',629,'blala'); 
