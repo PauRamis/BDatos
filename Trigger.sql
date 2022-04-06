@@ -25,6 +25,20 @@ CREATE TABLE log_cambios_email (
       REFERENCES alumnes(id),
    PRIMARY KEY (id)
 );
+DROP TABLE IF EXISTS log_alumnos_eliminados;
+CREATE TABLE log_cambios_email (
+   id INT NOT NULL AUTO_INCREMENT,
+   id_alumno INT,
+   fecha_hora DATETIME,
+   nom CHAR(20),
+   cognom1 CHAR(20),
+   cognom2 CHAR(20),
+   gmail CHAR(30),
+   FOREIGN KEY (id_alumno)
+      REFERENCES alumnes(id),
+   PRIMARY KEY (id)
+);
+
 
 DROP PROCEDURE IF EXISTS crear_email;
 DELIMITER //
@@ -84,6 +98,14 @@ BEGIN
 END$$
 
 /*Trigger4*/
+CREATE TRIGGER trigger_guardar_alumnos_eliminados
+AFTER DELETE ON alumnes
+FOR EACH ROW
+BEGIN
+      INSERT INTO log_alumnos_eliminados () 
+      VALUES ();
+END$$
+
 /* inserts */
 INSERT INTO alumnes (id, nom, cognom1, cognom2, nota, domini)
 VALUES (1,'et','soluta','Elise',5,'blala'),(2,'in','quae','Jamie',-1,'blala'),(3,'et','porro','Isaiah',629,'blala'); 
