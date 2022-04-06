@@ -26,7 +26,7 @@ CREATE TABLE log_cambios_email (
    PRIMARY KEY (id)
 );
 DROP TABLE IF EXISTS log_alumnos_eliminados;
-CREATE TABLE log_cambios_email (
+CREATE TABLE log_alumnos_eliminados (
    id INT NOT NULL AUTO_INCREMENT,
    id_alumno INT,
    fecha_hora DATETIME,
@@ -102,8 +102,8 @@ CREATE TRIGGER trigger_guardar_alumnos_eliminados
 AFTER DELETE ON alumnes
 FOR EACH ROW
 BEGIN
-      INSERT INTO log_alumnos_eliminados () 
-      VALUES ();
+      INSERT INTO log_alumnos_eliminados (id_alumno, fecha_hora, nom, cognom1, cognom2, gmail) 
+      VALUES (old.id, NOW(), old.nom, old.cognom1, old.cognom2, old.gmail);
 END$$
 
 /* inserts */
