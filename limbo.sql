@@ -47,15 +47,15 @@ CREATE TABLE Particulars (
    PRIMARY KEY (Nif, numClient)
 );
 
-/*DROP TABLE IF EXISTS Empreses;
+DROP TABLE IF EXISTS Empreses;
 CREATE TABLE Empreses (
    Cif INT NOT NULL,
-   numClient CHAR(40) NOT NULL,
+   numClient INT NOT NULL,
    activitat CHAR(40),
    FOREIGN KEY (numClient)
       REFERENCES Client(numClient) ON DELETE CASCADE,
    PRIMARY KEY (Cif, numClient)
-);*/
+);
 
 DROP TABLE IF EXISTS Targeta;
 CREATE TABLE Targeta (
@@ -89,17 +89,17 @@ CREATE TABLE Producte (
    PRIMARY KEY (codiProducte)
 );
 
-/*DROP TABLE IF EXISTS Producte_Compra;
+DROP TABLE IF EXISTS Producte_Compra;
 CREATE TABLE Producte_Compra (
    codiCompra INT NOT NULL,
-   codiProducte INT NOT NULL,
+   codiProducte CHAR(40) NOT NULL,
    nombreUnitats INT,
    FOREIGN KEY (codiCompra)
       REFERENCES Compra(codi) ON DELETE CASCADE,
    FOREIGN KEY (codiProducte)
       REFERENCES Producte(codiProducte) ON DELETE CASCADE,
    PRIMARY KEY (codiCompra, codiProducte)
-);*/
+);
 
 DROP TABLE IF EXISTS Historial_Descomptes;
 CREATE TABLE Historial_Descomptes (
