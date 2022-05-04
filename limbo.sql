@@ -74,13 +74,16 @@ CREATE TABLE Compra (
    codi INT NOT NULL,
    data DATE,
    import INT,
+   númeroTargeta INT,
+   FOREIGN KEY (númeroTargeta)
+      REFERENCES Targeta(número) ON DELETE CASCADE,
    PRIMARY KEY (codi)
 );
 
 DROP TABLE IF EXISTS Producte;
 CREATE TABLE Producte (
    codiProducte CHAR(20) NOT NULL,
-   descripció CHAR(40),
+   descripció CHAR(100),
    unitatMesura CHAR(40),
    pes INT CHECK (pes >= 0),
    marca CHAR(40),
@@ -113,3 +116,7 @@ CREATE TABLE Historial_Descomptes (
       REFERENCES Producte(codiProducte) ON DELETE CASCADE,
    PRIMARY KEY (numClient, codiProducte, data)
 );
+
+/*CONSULTES SQL*/
+
+SELECT * FROM Historial_Descomptes;
