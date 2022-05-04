@@ -82,9 +82,9 @@ CREATE TABLE Producte (
    codiProducte CHAR(20) NOT NULL,
    descripció CHAR(40),
    unitatMesura CHAR(40),
-   pes INT,
+   pes INT CHECK (pes >= 0),
    marca CHAR(40),
-   PVP INT,
+   PVP INT CHECK (PVP >= 0),
    IVA INT,
    PRIMARY KEY (codiProducte)
 );
