@@ -7,7 +7,7 @@ CREATE TABLE Ciutat (
    codiCiutat INT NOT NULL,
    nom CHAR(40),
    provincia CHAR(40),
-   PRIMARY KEY (id)
+   PRIMARY KEY (codiCiutat)
 );
 
 DROP TABLE IF EXISTS Adreça;    
@@ -21,11 +21,10 @@ CREATE TABLE Adreça (
    porta CHAR(10),
    codiCiutat INT,
    FOREIGN KEY (numClient)
-      REFERENCES Client(numClient),
+      REFERENCES Client(numClient) ON DELETE CASCADE,
    FOREIGN KEY (codiCiutat)
-      REFERENCES Ciutat(codiCiutat),
-   PRIMARY KEY (codiAdreça),
-   PRIMARY KEY (numClient)
+      REFERENCES Ciutat(codiCiutat) ON DELETE CASCADE,
+   PRIMARY KEY (codiAdreça, numClient)
 );
 
 DROP TABLE IF EXISTS Client;
@@ -44,9 +43,8 @@ CREATE TABLE bb (
    numClient INT NOT NULL,
    dataNaix DATE,
    FOREIGN KEY (numClient)
-      REFERENCES Client(numClient),
-   PRIMARY KEY (Nif),
-   PRIMARY KEY (numClient)
+      REFERENCES Client(numClient) ON DELETE CASCADE,
+   PRIMARY KEY (Nif, numClient)
 );
 
 DROP TABLE IF EXISTS Empreses;
@@ -55,9 +53,8 @@ CREATE TABLE Empreses (
    numClient CHAR(40),
    activitat CHAR(40),
    FOREIGN KEY (numClient)
-      REFERENCES Client(numClient),
-   PRIMARY KEY (Cif),
-   PRIMARY KEY (numClient)
+      REFERENCES Client(numClient) ON DELETE CASCADE,
+   PRIMARY KEY (Cif, numClient)
 );
 
 DROP TABLE IF EXISTS Historial_Descomptes;
@@ -67,12 +64,10 @@ CREATE TABLE Historial_Descomptes (
    data CHAR(40),
    percentatge INT,
    FOREIGN KEY (numClient)
-      REFERENCES Client(numClient),
+      REFERENCES Client(numClient) ON DELETE CASCADE,
    FOREIGN KEY (codiProducte)
-      REFERENCES Producte(codiProducte),
-   PRIMARY KEY (numClient),
-   PRIMARY KEY (codiProducte),
-   PRIMARY KEY (data)
+      REFERENCES Producte(codiProducte) ON DELETE CASCADE,
+   PRIMARY KEY (numClient, codiProducte, data)
 );
 
 DROP TABLE IF EXISTS Targeta;
@@ -83,7 +78,7 @@ CREATE TABLE Targeta (
    codiSeguretat INT,
    numClient INT,
    FOREIGN KEY (numClient)
-      REFERENCES Client(numClient),
+      REFERENCES Client(numClient) ON DELETE CASCADE,
    PRIMARY KEY (número)
 );
 
@@ -101,11 +96,10 @@ CREATE TABLE Producte_Compra (
    codiProducte INT NOT NULL,
    nombreUnitats INT,
    FOREIGN KEY (codiCompra)
-      REFERENCES Compra(codi),
+      REFERENCES Compra(codi) ON DELETE CASCADE,
    FOREIGN KEY (codiProducte)
-      REFERENCES Producte(codiProducte),
-   PRIMARY KEY (codiCompra),
-   PRIMARY KEY (codiProducte)
+      REFERENCES Producte(codiProducte) ON DELETE CASCADE,
+   PRIMARY KEY (codiCompra, codiProducte)
 );
 
 DROP TABLE IF EXISTS Producte;
@@ -119,4 +113,3 @@ CREATE TABLE Producte (
    IVA INT,
    PRIMARY KEY (codiProducte)
 );
-/*codi productes alfanumeric*/
